@@ -7,7 +7,6 @@ import javax.swing.SwingConstants;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.io.File;
 
 public class DataReaderGUI extends JFrame {
     public DataReaderGUI() {
@@ -54,32 +53,30 @@ public class DataReaderGUI extends JFrame {
         dataPanel.add(totalDaysLabel);
         dataPanel.add(timeElapsedLabel);
 
-        FileSelecter fileSelecter = new FileSelecter();
-        JsonReader jsonReader = new JsonReader();
-        GeneralData generalJSONdata = new GeneralData();
         
         JButton raccbutton = new JButton("select file");
-        
         raccbutton.setPreferredSize( new java.awt.Dimension(100, 50) );
         dataPanel.add(raccbutton, BorderLayout.SOUTH);
         add(dataPanel, BorderLayout.CENTER);
         setSize(300, 400);
-
+        
+        FileSelecter fileSelecter = new FileSelecter();
         raccbutton.addActionListener( e -> {
-        File selectedFile = fileSelecter.selectFile();
-        System.out.println(selectedFile);
-        //generalJSONdata.setFileToRead(selectedFile);
+            fileSelecter.selectFile();
+        });
+        
+        JsonReader jsonReader = new JsonReader();
+        GeneralData generalJSONdata = jsonReader.getGeneralData(fileSelecter.getChoosenFile());
+        
         totalMessagesLabel.setText("   Total messages: " + generalJSONdata.getTotalMessages());
         totalWordsLabel.setText("   Total words: " + generalJSONdata.gettotalWords());
         firstTimestampLabel.setText("   Latest timestamp: " + generalJSONdata.getFirstTimestamp());
         latestTimestampLabel.setText("   First timestamp: " + generalJSONdata.getLatestTimestamp());
         totalDaysLabel.setText("   Total days: " + generalJSONdata.getTotalDays());
         timeElapsedLabel.setText("   Time elapsed: " + generalJSONdata.gettimeElapsed() + " ms");
-        });
-        
         searchWordButton.addActionListener( e2 -> {
             String wordToSearch = searchWordField.getText();
-            int wordCount = jsonReader.getAmountInJson(generalJSONdata.getFileToRead(), wordToSearch);
+            int wordCount = jsonReader.getAmountInJson(fileSelecter.getChoosenFile(), wordToSearch);
             searchWordLabel.setText("   Word search: '" + wordToSearch + "' was found " + wordCount + " times");
         });
     }

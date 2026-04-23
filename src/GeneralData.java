@@ -1,16 +1,15 @@
-import java.io.File;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 
 public class GeneralData {
     //first & last timestamp, total messages, time elapsed
-    int totalMessages;
-    int totalWords;
-    double timeElapsed;
-    String firstTimestamp;
-    String latestTimestamp;
-    File fileToRead;
+    private int totalMessages;
+    private int totalWords;
+    private double timeElapsed;
+    private String firstTimestamp;
+    private String latestTimestamp;
+
 
     public GeneralData() {
         totalMessages = 0;
@@ -18,10 +17,9 @@ public class GeneralData {
         timeElapsed = 0;
         firstTimestamp = "00:00";
         latestTimestamp = "00:00";
-        fileToRead = null;
     }
 
-
+    
     public int getTotalMessages() {
         return this.totalMessages;
     }
@@ -60,14 +58,6 @@ public class GeneralData {
 
     public void setLatestTimestamp(String latestTimestamp) {
         this.latestTimestamp = latestTimestamp;
-    }
-
-    public File getFileToRead() {
-        return this.fileToRead;
-    }
-
-    public void setFileToRead(File fileToRead) {
-        this.fileToRead = fileToRead;
     }
 
     public String getTotalDays() {
