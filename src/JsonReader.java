@@ -13,6 +13,7 @@ import org.json.simple.parser.ParseException;
 public class JsonReader {
     
     JSONParser parser = new JSONParser(); 
+    //wasche wasche = new wasche();
     JSONObject singeleMessage;
     JSONObject latestMessage;
     JSONObject firstMessage;
